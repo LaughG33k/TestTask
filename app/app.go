@@ -12,28 +12,28 @@ import (
 	"github.com/LaughG33k/TestTask/iternal/repository"
 	"github.com/LaughG33k/TestTask/pkg/client/psql"
 	"github.com/LaughG33k/TestTask/pkg/loging"
+	"github.com/joho/godotenv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang-migrate/migrate/v4"
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
 
 	_ "github.com/golang-migrate/migrate/v4/source/file"
-	"github.com/joho/godotenv"
 	_ "github.com/mattes/migrate/source/file"
 )
 
 func Run() {
 
-	logrus, err := loging.InitLogrus("/TestTask/logs.txt")
+	err := godotenv.Load()
 
 	if err != nil {
 		log.Panic(err)
 	}
 
-	err = godotenv.Load()
+	logrus, err := loging.InitLogrus(os.Getenv("LOG_PATH"))
 
 	if err != nil {
-		logrus.Panic(err)
+		log.Panic(err)
 	}
 
 	route := gin.Default()
