@@ -6,9 +6,9 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/testTask/iternal/model"
-	"github.com/testTask/iternal/types"
-	"github.com/testTask/pkg/client"
+	"github.com/TestTask/iternal/model"
+	"github.com/TestTask/iternal/types"
+	"github.com/TestTask/pkg/client"
 
 	"github.com/gin-gonic/gin"
 	"github.com/goccy/go-json"

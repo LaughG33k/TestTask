@@ -5,7 +5,7 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/testTask/iternal/types"
+	"github.com/TestTask/iternal/types"
 
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"

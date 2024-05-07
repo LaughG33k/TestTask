@@ -7,11 +7,11 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/testTask/iternal"
-	"github.com/testTask/iternal/handler"
-	"github.com/testTask/iternal/repository"
-	"github.com/testTask/pkg/client/psql"
-	"github.com/testTask/pkg/loging"
+	"github.com/TestTask/iternal"
+	"github.com/TestTask/iternal/handler"
+	"github.com/TestTask/iternal/repository"
+	"github.com/TestTask/pkg/client/psql"
+	"github.com/TestTask/pkg/loging"
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang-migrate/migrate/v4"
@@ -24,7 +24,7 @@ import (
 
 func Run() {
 
-	logrus, err := loging.InitLogrus("/Users/user/Desktop/testTask/logs.txt")
+	logrus, err := loging.InitLogrus("/TestTask/logs.txt")
 
 	if err != nil {
 		log.Panic(err)

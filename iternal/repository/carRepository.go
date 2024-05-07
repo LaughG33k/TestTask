@@ -6,9 +6,9 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/testTask/iternal/model"
-	"github.com/testTask/iternal/types"
-	"github.com/testTask/pkg/client/psql"
+	"github.com/TestTask/iternal/model"
+	"github.com/TestTask/iternal/types"
+	"github.com/TestTask/pkg/client/psql"
 
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgconn"

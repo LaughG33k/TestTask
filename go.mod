@@ -1,4 +1,4 @@
-module github.com/testTask
+module github.com/TestTask
 
 go 1.20
 

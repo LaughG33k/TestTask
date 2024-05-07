@@ -5,8 +5,8 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/testTask/iternal/model"
-	"github.com/testTask/iternal/types"
+	"github.com/TestTask/iternal/model"
+	"github.com/TestTask/iternal/types"
 
 	"github.com/gin-gonic/gin"
 	"github.com/goccy/go-json"

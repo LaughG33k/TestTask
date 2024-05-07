@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/testTask/iternal/repository"
+	"github.com/TestTask/iternal/repository"
 
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"

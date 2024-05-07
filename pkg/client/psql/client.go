@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/testTask/pkg"
+	"github.com/TestTask/pkg"
 
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgconn"
