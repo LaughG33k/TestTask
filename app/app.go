@@ -74,15 +74,9 @@ func Run() {
 		logrus.Panic(err)
 	}
 
-	poolMaxConns, err := strconv.Atoi(os.Getenv("PSQL_POOL_MAX_CONNS"))
-
-	if err != nil {
-		logrus.Panic(err)
-	}
-
 	migrations, err := migrate.New(
 		"file://migrations/psql/carInfo",
-		fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=%s", os.Getenv("PSQL_USERNAME"), os.Getenv("PSQL_PASSWORD"), os.Getenv("PSQL_HOST"), os.Getenv("PSQL_PORT"), os.Getenv("PSQL_DB_NAME"), os.Getenv("PSQL_SSLMODE")),
+		fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=%s", os.Getenv("PSQL_USERNAME"), os.Getenv("PSQL_PASSWORD"), os.Getenv("PSQL_HOST"), os.Getenv("PSQL_PORT"), os.Getenv("PSQL_DB_NAME"), "disable"),
 	)
 
 	if err != nil {
@@ -103,9 +97,8 @@ func Run() {
 		User:         os.Getenv("PSQL_USERNAME"),
 		Password:     os.Getenv("PSQL_PASSWORD"),
 		Db:           os.Getenv("PSQL_DB_NAME"),
-		SslMode:      os.Getenv("PSQL_SSLMODE"),
 		TLSConfig:    nil,
-		PoolMaxConns: poolMaxConns,
+		PoolMaxConns: 1000,
 	}, 15*time.Second)
 
 	if err != nil {
