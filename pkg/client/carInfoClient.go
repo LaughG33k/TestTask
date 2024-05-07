@@ -8,8 +8,8 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/TestTask/iternal/model"
-	"github.com/TestTask/iternal/types"
+	"github.com/LaughG33k/TestTask/iternal/model"
+	"github.com/LaughG33k/TestTask/iternal/types"
 
 	"github.com/goccy/go-json"
 )

@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/TestTask/iternal/model"
+	"github.com/LaughG33k/TestTask/iternal/model"
 
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"

@@ -7,11 +7,11 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/TestTask/iternal"
-	"github.com/TestTask/iternal/handler"
-	"github.com/TestTask/iternal/repository"
-	"github.com/TestTask/pkg/client/psql"
-	"github.com/TestTask/pkg/loging"
+	"github.com/LaughG33k/TestTask/iternal"
+	"github.com/LaughG33k/TestTask/iternal/handler"
+	"github.com/LaughG33k/TestTask/iternal/repository"
+	"github.com/LaughG33k/TestTask/pkg/client/psql"
+	"github.com/LaughG33k/TestTask/pkg/loging"
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang-migrate/migrate/v4"
