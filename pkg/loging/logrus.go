@@ -48,7 +48,10 @@ func InitLogrus(logFilePath string) (*logrus.Logger, error) {
 		FullTimestamp: true,
 	}
 
-	var lf io.Writer
+	h := &hook{
+		Writers:   []io.Writer{},
+		LogLevels: logrus.AllLevels,
+	}
 
 	if logFilePath != "" {
 		logFile, err := os.OpenFile(logFilePath, os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0644)
@@ -56,15 +59,14 @@ func InitLogrus(logFilePath string) (*logrus.Logger, error) {
 			return nil, err
 		}
 
-		lf = logFile
+		h.Writers = append(h.Writers, logFile)
 	}
 
 	l.SetOutput(io.Discard)
 
-	l.AddHook(&hook{
-		Writers:   []io.Writer{lf, os.Stdout},
-		LogLevels: logrus.AllLevels,
-	})
+	h.Writers = append(h.Writers, os.Stdout)
+
+	l.AddHook(h)
 
 	l.SetLevel(logrus.TraceLevel)
 
