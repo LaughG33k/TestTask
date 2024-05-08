@@ -104,7 +104,7 @@ func (h *CarHandler) addNewCar(regNum string) error {
 	defer canc()
 
 	h.log.Info("send request to api")
-	car, err := client.GetInfo(timeoutCtx, clientApiUrl, regNum)
+	car, err := client.GetInfo(timeoutCtx, regNum)
 
 	if err != nil {
 		h.log.Info("cannot get car from api", err)
@@ -155,7 +155,7 @@ func (h *CarHandler) addNewCars(regNums ...string) ([][]string, error) {
 
 		h.log.Info(fmt.Sprintf("send request to api. Required regNum: %s", v))
 
-		car, err := client.GetInfo(timeoutCtx, clientApiUrl, v)
+		car, err := client.GetInfo(timeoutCtx, v)
 
 		if err != nil {
 

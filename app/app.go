@@ -10,6 +10,7 @@ import (
 	"github.com/LaughG33k/TestTask/iternal"
 	"github.com/LaughG33k/TestTask/iternal/handler"
 	"github.com/LaughG33k/TestTask/iternal/repository"
+	"github.com/LaughG33k/TestTask/pkg/client"
 	"github.com/LaughG33k/TestTask/pkg/client/psql"
 	"github.com/LaughG33k/TestTask/pkg/loging"
 	"github.com/joho/godotenv"
@@ -109,6 +110,8 @@ func Run() {
 	defer psql.Close()
 
 	carRepo := repository.NewCarRepository(psql)
+
+	client.ApiUrl = os.Getenv("CAR_INFO_API_URL")
 
 	handl := handler.NewCarHandler(logrus, route, carRepo)
 

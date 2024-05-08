@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	"os"
 
 	"github.com/LaughG33k/TestTask/iternal/model"
 	"github.com/LaughG33k/TestTask/iternal/types"
@@ -14,11 +13,13 @@ import (
 	"github.com/goccy/go-json"
 )
 
-func GetInfo(ctx context.Context, path, regNum string) (model.Car, error) {
+var ApiUrl string
+
+func GetInfo(ctx context.Context, regNum string) (model.Car, error) {
 
 	client := &http.Client{}
 
-	url := fmt.Sprintf("%s/info?regNum=%s", os.Getenv("CAR_INFO_API_URL"), regNum)
+	url := fmt.Sprintf("%s/info?regNum=%s", ApiUrl, regNum)
 
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
 
