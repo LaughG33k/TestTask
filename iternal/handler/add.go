@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"os"
 
 	"github.com/LaughG33k/TestTask/iternal/model"
 	"github.com/LaughG33k/TestTask/iternal/types"
@@ -14,6 +15,8 @@ import (
 	"github.com/goccy/go-json"
 	"github.com/sirupsen/logrus"
 )
+
+var clientApiUrl string = os.Getenv("CAR_INFO_API_URL")
 
 func (h *CarHandler) addNewCarsHandle(c *gin.Context) {
 
@@ -101,7 +104,7 @@ func (h *CarHandler) addNewCar(regNum string) error {
 	defer canc()
 
 	h.log.Info("send request to api")
-	car, err := client.GetInfo(timeoutCtx, "http://127.0.0.1:8081/info", regNum)
+	car, err := client.GetInfo(timeoutCtx, clientApiUrl, regNum)
 
 	if err != nil {
 		h.log.Info("cannot get car from api", err)
@@ -152,7 +155,7 @@ func (h *CarHandler) addNewCars(regNums ...string) ([][]string, error) {
 
 		h.log.Info(fmt.Sprintf("send request to api. Required regNum: %s", v))
 
-		car, err := client.GetInfo(timeoutCtx, "http://127.0.0.1:8081/info", v)
+		car, err := client.GetInfo(timeoutCtx, clientApiUrl, v)
 
 		if err != nil {
 
