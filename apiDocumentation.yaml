@@ -1,0 +1,255 @@
+openapi: 3.0.3
+info:
+  title: TestTask
+  version: 0.0.1
+paths:
+  /getPage:
+    get:
+      description: получение данных с возможностью пагинаци и фильтрации.
+      
+      parameters:
+        - name: limit
+          description: "лимитирует возвращаемые значения"
+          in: query
+          required: true
+          schema:
+            type: integer
+            
+        - name: pastId
+          description: "используется для корректной пагинации. Примает последней id машины, которая была получена ранее"
+          in: query
+          required: false
+          schema:
+            type: integer
+        
+        - name: markFilter
+          description: "фильтрует машины по маркам"
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+            
+        - name: modelFilter
+          description: "фильтрует машины по моделям"
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        
+        - name: yearsFilter
+          description: "фильтрует машины по году выпуска"
+          in: query
+          required: false
+          schema:
+            type: array
+            items: 
+              type: integer
+            
+        - name: periodStart
+          description: "фильтрует машины по году от первого заданаго числа в periodStart до последнего заданго числа в periodEnd. Нельзя использовать вместе с yearsFilter"
+          in: query
+          required: false
+          schema: 
+            type: integer
+            
+        - name: periodEnd
+          in: query
+          required: false
+          schema: 
+            type: integer
+            
+    
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema: 
+                type: object
+                required:
+                  - carArray
+                properties:
+                  carArray:
+                    type: array
+                    items: 
+                      $ref: '#/components/schemas/Car'
+                      
+        '400': 
+          description: Bad request
+        
+        '500':
+          description: Iteranl server error
+          
+  
+  /addCars:
+    post:
+      description: добавляет машины или машину в бд по номеру. Может вернуть массив с не добавлеными номерами и причиной.
+        
+      
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - regNums
+              properties:
+                regNums:
+                  type: array
+                  items: 
+                    type: string
+             
+      responses:
+        '201':
+          description: created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotAddedRegNums'
+           
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotAddedRegNums'
+                      
+        '500':
+          description: iternal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotAddedRegNums'
+                
+  /editCar/{regNum}:
+  
+    patch:
+    
+      description: изменение данных у указаной машиный через номер. В request body передаются поля которые подлежат изменению.
+  
+      parameters:
+        - name: regNum
+          in: path
+          required: true
+          schema:
+            type: string
+            
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                mark:
+                  type: string
+                model:
+                  type: string
+                year: 
+                  type: integer
+                owner:
+                  $ref: '#/components/schemas/Person'
+              
+      
+      responses: 
+        '200':
+          description: Edited
+        '404':
+          description: Not found
+        '400':
+          description: Bad request
+        '500':
+          description: Iternal server error
+          
+  /deleteCar/{regNum}:
+    delete: 
+      parameters:
+        - name: regNum
+          in: path
+          required: true
+          schema:
+            type: string
+            
+      responses:
+        '200': 
+          description: Delted
+        '404': 
+          description: Not found
+          
+        
+            
+      
+components:
+  schemas: 
+  
+    NotAddedRegNums:
+      description: Вложеный массив строк, который содержит два значения. Первое, номер машины которая была не добавлена, второе, причина почему была эта машина не добавлена.
+      required: 
+        - notAddedRegNums
+      properties:
+        notAddedRegNums: 
+          type: array
+          items: 
+            type: array
+            items: 
+              type: string
+          example:
+            [
+              ["E290KX170", "Invalid data"],
+              ["E291MP39", "Iteranl error"],
+              ["O783EX77", "Car exists"]
+            ]
+        
+    Car: 
+      type: object
+      required:
+        - id
+        - regNum
+        - mark
+        - model
+        - year
+        - owner
+      
+      properties:
+        id:
+          type: integer
+          example: 352
+        regNum:
+          type: string
+          example: X123XX150
+        mark:
+          type: string
+          example: Lada
+        model:
+          type: string
+          example: Vesta
+        year:
+          type: integer
+          example: 2002
+        owner:
+          $ref: '#/components/schemas/Person'
+          
+          
+    Person:
+      type: object
+      
+      required:
+        - name
+        - surname
+        - patranomic
+        
+      properties:
+        name:
+          type: string
+        surname: 
+          type: string
+        patranomic: 
+          type: string
+
+      
+      
+        
+        
